@@ -1,16 +1,52 @@
 <head>
-  <title>ergoNomic</title>
+  <title>Ergo Nomic</title>
 </head>
 
 <body>
-  <h1>Ergo Nomic</h1>
+	<div class="container">
+	  	<header>
+	  		<h1>Ergo Nomic</h1>
+			{{> loginButtons}}
+		</header>
 
-  {{> loginButtons}}
-
-  {{> hello}}
+		<h3 align="center">Previous Rolls</h3>
+		<div class="row-fluid">
+			<div class="span12">
+				{{#if currentUser}}
+					<button class="roll-dice btn btn-primary">Roll</button>
+				{{/if}}
+				{{#if result}}
+					<div class="result-display">
+						{{result}}
+					</div>
+				{{/if}}
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<table class="table table-bordered table-condensed table-hover table-striped table-grey">
+					<thead>
+						<tr>
+							<th>Player</th>
+							<th>Result</th>
+							<th>Time</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each previousRolls}}
+							{{> roll}}
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+    </div>
 </body>
 
 <template name="roll">
-  <button>Roll</button>
-  <p>You've pressed the button {{counter}} times.</p>
+	<tr>
+		<td>{{player}}</td>
+		<td>{{result}}</td>
+		<td>{{createdAt}}</td>
+	</tr>
 </template>
