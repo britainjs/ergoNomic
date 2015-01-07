@@ -1,19 +1,29 @@
+DiceRolls = new Mongo.Collection('diceRolls');
+
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault("counter", 0);
+  Template.body.events ({
+    "click .roll-dice": function (event) {
+    // This function is called when the new task form is submitted
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get("counter");
-    }
+    var result = Math.floor(Math.random() * 6) + 1;
+
+    DiceRolls.insert({
+      result: result,
+      createdAt: new Date(), // current time
+      player: Meteor.user()
+    });
+
+    alert(result)
+    return false  
   });
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set("counter", Session.get("counter") + 1);
-    }
+  Template.body.helpers ({
+
   });
+
+  Accounts.ui.config({
+  passwordSignupFields: "USERNAME_ONLY"
+});
 }
 
 if (Meteor.isServer) {
